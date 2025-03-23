@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网站</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #34495e;
+            --bg-color: #ecf0f1;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: var(--primary-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#about">个人简介</a>
+        <a href="#education">教育经历</a>
+        <a href="#honors">曾获荣誉</a>
+        <a href="#contact">联系方式</a>
+    </nav>
+
+    <div class="container">
+        <div class="section" id="about">
+            <h1>个人简介</h1>
+            <p>你好，我叫李远，是一名硕士研究生，专注于农业资源与环境。</p>
+        </div>
+        <div class="section" id="education">
+            <h2>教育经历</h2>
+            <ul>
+                <li>硕士，资源利用与植物保护，华中农业大学，2019-2022</li>
+                <li>本科，农业资源与环境，石河子大学，2015-2019</li>
+            </ul>
+        </div>
+        <div class="section" id="honors">
+            <h2>曾获荣誉</h2>
+            <ul>
+                <li>优秀毕业生奖</li>
+                <li>学术创新奖</li>
+            </ul>
+        </div>
+        <div class="section" id="contact">
+            <h2>联系方式</h2>
+            <p>Email: 1375170102@qq.com</p>
+        </div>
+    </div>
+
+    <script>
+        // 添加滚动动画
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
